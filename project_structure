@@ -1,0 +1,23 @@
+/your_project
+    /app
+        /models
+            __init__.py
+            user.py
+            transaction.py
+            budget.py
+            report.py
+        /services
+            __init__.py
+            user_service.py
+            transaction_service.py
+            budget_service.py
+            report_service.py
+        /routes
+            __init__.py
+            auth.py
+            transactions.py
+            budgets.py
+            reports.py
+        __init__.py
+        config.py
+    run.py
