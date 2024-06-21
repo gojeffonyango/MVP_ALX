@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance App</title>
+    <style>
+      /* Add your CSS styling here */
+    </style>
+  </head>
+  <body>
+    <h1>Finance App</h1>
+
+    <!-- Registration Form -->
+    <h2>Register</h2>
+    <form id="register-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" /><br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" /><br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br />
+      <button type="submit">Register</button>
+    </form>
+
+    <!-- Login Form -->
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="username-login">Username:</label>
+      <input type="text" id="username-login" name="username" /><br />
+      <label for="password-login">Password:</label>
+      <input type="password" id="password-login" name="password" /><br />
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- JavaScript for API calls -->
+    <script>
+      document
+        .getElementById("register-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const email = document.getElementById("email").value;
+
+          const response = await fetch("/api/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password, email }),
+          });
+
+          const data = await response.json();
+          alert(data.msg);
+        });
+
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("username-login").value;
+          const password = document.getElementById("password-login").value;
+
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            alert("Login successful!");
+            localStorage.setItem("token", data.access_token);
+          } else {
+            alert(data.msg);
+          }
+        });
+    </script>
+  </body>
+</html>
